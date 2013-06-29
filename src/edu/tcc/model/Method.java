@@ -10,7 +10,7 @@ import edu.tcc.visitor.Visitor;
  * @author hugo.hennies
  */
 
-public class Method implements Visitable, ProjectComponent {
+public class Method implements Visitable {
 	
 	private String name;
 	private String type;

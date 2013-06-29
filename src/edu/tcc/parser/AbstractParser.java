@@ -1,6 +1,5 @@
 package edu.tcc.parser;
 
-import edu.tcc.model.ProjectComponent;
 
 /**
  * @author hugo.hennies
@@ -14,6 +13,5 @@ public abstract class AbstractParser {
 		m_successor = successor;
 	}
 
-	public abstract ProjectComponent parse(String s);
 
 }

@@ -1,7 +1,6 @@
 package edu.tcc.parser;
 
 import edu.tcc.model.Class;
-import edu.tcc.model.ProjectComponent;
 
 /**
  * @author diego.pinho
@@ -13,11 +12,6 @@ public class ClassParser extends AbstractParser{
 		return null;
 	}
 
-	@Override
-	public ProjectComponent parse(String s) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	
 //	public void findName(){
@@ -66,7 +60,7 @@ public class ClassParser extends AbstractParser{
 	 */
 	
 	/*
-	 * criar expressao para procurar método da seguinte maneira:
+	 * criar expressao para procurar metodo da seguinte maneira:
 	 * -antes de {
 	 * -depois de ; ou {
 	 */
