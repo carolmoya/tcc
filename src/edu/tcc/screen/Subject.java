@@ -3,6 +3,10 @@ package edu.tcc.screen;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author carolina.moya
+ */
+
 public abstract class Subject {
 
 List<Observer> observers;
