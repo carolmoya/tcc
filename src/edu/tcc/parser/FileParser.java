@@ -1,82 +1,110 @@
 package edu.tcc.parser;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.net.URL;
+import java.net.URLClassLoader;
 
-import edu.tcc.model.Class;
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
+
+import edu.tcc.model.EClass;
 
 /**
- * @author hugo.hennies
+ * @author diego.pinho
  */
-
 public class FileParser {
-	
+
+	private JavaCompiler compiler;
+	private ClassParser classParser;
+
 	/**
-	 * 
-	 * @param f - file that must be parsed
-	 * @return classes - return the classes in file 
-	 * @throws FileNotFoundException
-	 * @since 1.0
+	 * Class constructor
 	 */
-	public List<Class> Parsefile(File f) throws FileNotFoundException
-	{
-		String s = stringfy(f);
-		Pattern extendsPattern = Pattern.compile("[};]?[^}, ;]* [c]lass [^{]*\\{");//Arrumar expressao
-		Matcher m = extendsPattern.matcher(s);
-		ClassParser cp = new ClassParser();
-		List<Class> classes = new LinkedList<Class>();
-		while (m.find()) {
-			classes.add(cp.parseClass(m.group()));
-	        System.out.println(m.group());
-	    }
-		return classes;
-	}
-	
-	/**
-	 * Transform a File into a string
-	 * @param f - file
-	 * @return String
-	 * @throws FileNotFoundException
-	 * @since 1.0
-	 */
-	private String stringfy(File f) throws FileNotFoundException
-	{
-		Scanner sc = new Scanner(f);
-		StringBuffer tempString = new StringBuffer();
-		while(sc.hasNext())
-		{
-			tempString.append(sc.next()+ " ");
-		}
-		sc.close();
-		return tempString.toString();
-	}
-	
-	/**
-	 * Find the end of a class
-	 * @param initialBracePosition - the inicial brace position
-	 * @param s - the string
-	 * @return endBrace
-	 * @since 1.0
-	 */
-	public int findClassEnd(int initialBracePosition, String s)
-	{
-		Pattern extendsPattern = Pattern.compile("[{|}]");
-		Matcher m = extendsPattern.matcher(s);
-		m.region(initialBracePosition,s.length());
-		int counter = 0;
-		int endBrace = 0;
-		while (m.find()) 
-		{
-			if(m.group().equals("{")) counter++;
-			else if (counter == 0) endBrace = m.start();
-				else counter-- ;
-	    }
-		return endBrace;
+	public FileParser() {
+		System.setProperty("java.home", "C:\\Program Files\\Java\\jdk1.7.0_02");
+		this.classParser = new ClassParser();
 	}
 
+	/**
+	 * @param file
+	 */
+	public EClass parseFile(File file) {
+		Class<? extends Object> klass = getClassInstanceFromFile(file);
+		EClass Eklass = this.getEClassFromClass(klass);
+		return Eklass;
+	}
+	
+	/**
+	 * @param file
+	 * @return Class<? extends Object>
+	 */
+	public Class<? extends Object> getClassInstanceFromFile(File file){
+		this.compiler = ToolProvider.getSystemJavaCompiler();
+		this.compiler.run(null, null, null, file.getPath());
+		
+		try {
+			String root = this.getFileRoot(file);
+			File rootFile = new File(root);
+			URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { rootFile.toURI().toURL() });
+			Class<?> cls = Class.forName(this.getCompleteClassName(file), true, classLoader);
+			Object instance = cls.newInstance();
+			Class<? extends Object> klass = instance.getClass();
+			return klass;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	/**
+	 * @param klass
+	 * @return EClass
+	 */
+	public EClass getEClassFromClass(Class<? extends Object> klass){
+		EClass Eklass = this.classParser.parseClass(klass); 
+		return Eklass;
+	}
+
+	/**
+	 * @param file
+	 * @return finalAbsolutePath
+	 */
+	private String getCompleteClassName(File file) {
+		File absolute = file.getAbsoluteFile();
+		String root = this.getFileRoot(file);
+		String absolutePath = absolute.toString();
+
+		absolutePath = absolutePath.substring(3 + root.length(),
+				absolutePath.length() - 5); // exclude .java
+
+		String[] split = absolutePath.split("\\\\");
+
+		String finalAbsolutePath = "";
+		for (String string : split) {
+			finalAbsolutePath = finalAbsolutePath + string + ".";
+		}
+
+		finalAbsolutePath = finalAbsolutePath.substring(0,
+				finalAbsolutePath.length() - 1); // remove the last dot
+
+		return finalAbsolutePath;
+	}
+
+	/**
+	 * @param file
+	 * @return fileRoot
+	 */
+	private String getFileRoot(File file) {
+		String root = file.getParent();
+		String[] split = root.split("\\\\");
+		int length = split.length;
+
+		String parent = split[length - 1];
+		String fileRoot = "/" + parent;
+
+		return fileRoot;
+	}
 }

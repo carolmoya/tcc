@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import edu.tcc.model.Attribute;
-import edu.tcc.model.Class;
-import edu.tcc.model.Method;
-import edu.tcc.model.Project;
+import edu.tcc.model.EAttribute;
+import edu.tcc.model.EClass;
+import edu.tcc.model.EMethod;
+import edu.tcc.model.EProject;
 
 /**
  * @author hugo.hennies
@@ -30,13 +30,13 @@ public class LCOM implements Visitor {
 	}
 
 	@Override
-	public void visit(Project pjt) {
+	public void visit(EProject pjt) {
 		pjt.acceptOnAllClasses(this);
 
 	}
 
 	@Override
-	public void visit(Class cls) { 
+	public void visit(EClass cls) { 
 		cls.acceptOnAllMethods(this);
 
 		int sCounter=0;
@@ -61,13 +61,13 @@ public class LCOM implements Visitor {
 	}
 
 	@Override
-	public void visit(Method mtd) {
+	public void visit(EMethod mtd) {
 		sets.add(mtd.getAtributesBeingUsed());
 
 	}
 
 	@Override
-	public void visit(Attribute atb) {
+	public void visit(EAttribute atb) {
 		// TODO Auto-generated method stub
 
 	}

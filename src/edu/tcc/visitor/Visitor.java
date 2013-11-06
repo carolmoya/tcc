@@ -1,7 +1,7 @@
 package edu.tcc.visitor;
 
 import edu.tcc.model.*;
-import edu.tcc.model.Class;
+import edu.tcc.model.EClass;
 
 /**
  * @author hugo.hennies
@@ -9,9 +9,9 @@ import edu.tcc.model.Class;
 
 public interface Visitor {
 	
-	public void visit (Project pjt);
-	public void visit (Class cls);
-	public void visit (Method mtd);
-	public void visit (Attribute atb);
+	public void visit (EProject pjt);
+	public void visit (EClass cls);
+	public void visit (EMethod mtd);
+	public void visit (EAttribute atb);
 
 }

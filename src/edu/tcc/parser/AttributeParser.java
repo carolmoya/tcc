@@ -1,6 +1,10 @@
 package edu.tcc.parser;
 
-import edu.tcc.model.Attribute;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.Map;
+
+import edu.tcc.model.EAttribute;
 
 /**
  * @author diego.pinho
@@ -8,19 +12,59 @@ import edu.tcc.model.Attribute;
 
 public class AttributeParser {
 	
+	public EAttribute parseAttribute(Field field){
+		EAttribute attribute = new EAttribute();
+		attribute.setName(field.getName());
+		attribute.setType(field.getType().getName());
+		this.populateFieldModifiers(attribute, field);
+		this.defineFieldLevel(attribute);
+		
+		return attribute;
+	}
+	
+	private void populateFieldModifiers(EAttribute attribute, Field field){
+		Map<String, Boolean> modifiers = attribute.getModifiers();
+		modifiers.put("static", this.isStatic(field)); // static
+		modifiers.put("private", this.isPrivate(field)); // private
+		modifiers.put("public", this.isPublic(field)); //public
+		modifiers.put("protected", this.isProtected(field)); //protected
+		
+		attribute.setModifiers(modifiers);
+	}
+	
+	private void defineFieldLevel(EAttribute attribute){
+		String level = "";
+		Map<String, Boolean> modifiers = attribute.getModifiers();
+		if(modifiers.get("public")) level = "public";
+		else if(modifiers.get("private")) level = "private";
+		else if(modifiers.get("protected")) level = "protected";
+		else level = "protected";
+		attribute.setAccessLevel(level);
+	}
+	
+	public boolean isStatic(Field field) {
+		return Modifier.isStatic(field.getModifiers());
+	}
+	
 	/**
-	 * Parse a line and build an Attribute object
-	 * @param line with format "<accessLevel> <type> <name>"
-	 * @return an Attribute object
-	 * @since 1.0
+	 * @param method
 	 */
-	public Attribute parseAttribute(String line){
-		Attribute t = new Attribute();
-		String[] s = line.trim().split("\\s+");
-		t.setAccessLevel(s[0]);
-		t.setType(s[1]);
-		t.setName(s[2]);
-		return t;
+	private boolean isPrivate(Field field){
+		return Modifier.isPrivate(field.getModifiers());
+	}
+	
+	/**
+	 * @param method
+	 */
+	private boolean isPublic(Field field){
+		return Modifier.isPublic(field.getModifiers());
+	}
+	
+	/**
+	 * @param method
+	 */
+	private boolean isProtected(Field field){
+		return Modifier.isProtected(field.getModifiers());
 	}
 	
 }

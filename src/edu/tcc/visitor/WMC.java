@@ -3,10 +3,10 @@ package edu.tcc.visitor;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.tcc.model.Attribute;
-import edu.tcc.model.Class;
-import edu.tcc.model.Method;
-import edu.tcc.model.Project;
+import edu.tcc.model.EAttribute;
+import edu.tcc.model.EClass;
+import edu.tcc.model.EMethod;
+import edu.tcc.model.EProject;
 
 /**
  * @author diego.pinho
@@ -29,17 +29,17 @@ public class WMC implements Visitor {
 	 * Visit the project
 	 */
 	@Override
-	public void visit(Project pjt) {
+	public void visit(EProject pjt) {
 		pjt.acceptOnAllClasses(this);
 	}
 
 	
 	/**
 	 * Visit the class
-	 * @param Class
+	 * @param EClass
 	 */
 	@Override
-	public void visit(Class cls) {
+	public void visit(EClass cls) {
 		mapWMC.put(cls.getName(), cls.getMethodCount());
 	}
 	
@@ -54,13 +54,13 @@ public class WMC implements Visitor {
 
 	
 	@Override
-	public void visit(Method mtd) {
+	public void visit(EMethod mtd) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Attribute atb) {
+	public void visit(EAttribute atb) {
 		// TODO Auto-generated method stub
 		
 	}

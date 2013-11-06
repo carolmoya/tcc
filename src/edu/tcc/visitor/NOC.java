@@ -3,10 +3,10 @@ package edu.tcc.visitor;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.tcc.model.Attribute;
-import edu.tcc.model.Class;
-import edu.tcc.model.Method;
-import edu.tcc.model.Project;
+import edu.tcc.model.EAttribute;
+import edu.tcc.model.EClass;
+import edu.tcc.model.EMethod;
+import edu.tcc.model.EProject;
 
 /**
  * @author hugo.hennies
@@ -26,20 +26,20 @@ public class NOC implements Visitor{
 	
 	/**
 	 * Accept a visitor
-	 * @param Project
+	 * @param EProject
 	 */
 	@Override
-	public void visit(Project pjt) {
+	public void visit(EProject pjt) {
 		pjt.acceptOnAllClasses(this);
 	}
 
 	
 	/**
-	 * @param Class
+	 * @param EClass
 	 * @since 1.0
 	 */
 	@Override
-	public void visit(Class cls) {
+	public void visit(EClass cls) {
 		if(!mapAncestorNumberOfChildren.containsKey(cls.getName())){
 			mapAncestorNumberOfChildren.put(cls.getName(), 0);
 		}
@@ -67,12 +67,12 @@ public class NOC implements Visitor{
 	
 	
 	@Override
-	public void visit(Method mtd) {
+	public void visit(EMethod mtd) {
 		//empty method
 	}
 
 	@Override
-	public void visit(Attribute atb) {
+	public void visit(EAttribute atb) {
 		//empty method
 	}
 

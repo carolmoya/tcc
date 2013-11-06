@@ -9,22 +9,18 @@ import java.util.List;
 
 public abstract class Subject {
 
-List<Observer> observers;
+	List<Observer> observers;
 
-
-	
 	protected void notifyObservers() {
 		for (Observer o : observers) {
 			o.update(this);
 		}
-		
 	}
 
 	public void attach(Observer o) {
-		if(observers == null) {
+		if (observers == null) {
 			observers = new LinkedList<Observer>();
 		}
 		observers.add(o);
 	}
-	
 }

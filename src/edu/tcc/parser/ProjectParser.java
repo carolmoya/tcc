@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.tcc.model.Project;
+import edu.tcc.model.EProject;
 
 /**
  * @author hugo.hennies
@@ -20,10 +20,10 @@ public class ProjectParser {
 	 * @throws FileNotFoundException
 	 * @since 1.0
 	 */
-	Project parseProject(String dir) throws FileNotFoundException
+	public EProject parseProject(String dir) throws FileNotFoundException
 	{
 		FileParser fp = new FileParser();
-		Project p = new Project();
+		EProject p = new EProject();
 		File root = new File(dir);
 		List<File> fila = new ArrayList<File>();
 		File f;
@@ -34,7 +34,7 @@ public class ProjectParser {
 			tempFiles =  f.listFiles();
 			for (File file : tempFiles) {
 				if(file.isDirectory()) fila.add(file);
-				else p.addAllClasses(fp.Parsefile(file));
+//				else p.addAllClasses(fp.Parsefile(file));
 			}
 			fila.remove(0);
 		}

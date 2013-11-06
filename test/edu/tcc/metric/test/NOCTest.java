@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import edu.tcc.model.Class;
-import edu.tcc.model.Project;
+import edu.tcc.model.EClass;
+import edu.tcc.model.EProject;
 import edu.tcc.visitor.NOC;
 import edu.tcc.visitor.Visitor;
 
@@ -20,39 +20,39 @@ public class NOCTest {
 	@Test
 	public void testNOC(){
 		
-		Project p = new Project();
+		EProject p = new EProject();
 		
-		Class a = new Class();
+		EClass a = new EClass();
 		a.setName("a1");
 		a.setAncestorClassName(null);
 		p.addClass(a);
 		
-		a = new Class();
+		a = new EClass();
 		a.setName("b2");
 		a.setAncestorClassName("a1");
 		p.addClass(a);
 		
-		a = new Class();
+		a = new EClass();
 		a.setName("c3");
 		a.setAncestorClassName("b1");
 		p.addClass(a);
 		
-		a = new Class();
+		a = new EClass();
 		a.setName("b1");
 		a.setAncestorClassName("a1");
 		p.addClass(a);
 		
-		a = new Class();
+		a = new EClass();
 		a.setName("c4");
 		a.setAncestorClassName("b2");
 		p.addClass(a);
 		
-		a = new Class();
+		a = new EClass();
 		a.setName("c1");
 		a.setAncestorClassName("b1");
 		p.addClass(a);
 		
-		a = new Class();
+		a = new EClass();
 		a.setName("c2");
 		a.setAncestorClassName("b1");
 		p.addClass(a);

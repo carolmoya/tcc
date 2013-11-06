@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import edu.tcc.model.Class;
-import edu.tcc.model.Method;
-import edu.tcc.model.Project;
+import edu.tcc.model.EClass;
+import edu.tcc.model.EMethod;
+import edu.tcc.model.EProject;
 import edu.tcc.visitor.LCOM;
 import edu.tcc.visitor.Visitor;
 
@@ -17,43 +17,43 @@ public class LCOMTest {
 	@Test
 	public void testLCOM(){
 		
-		Project p = new Project();
+		EProject p = new EProject();
 		
-		Class a = new Class();
+		EClass a = new EClass();
 		a.setName("a1");
 		
-		Method m = new Method();
+		EMethod m = new EMethod();
 		m.addAtribute("1");
 		m.addAtribute("2");
 		a.addMethod(m);
 		
-		m = new Method();
+		m = new EMethod();
 		m.addAtribute("2");
 		m.addAtribute("3");
 		m.addAtribute("4");
 		a.addMethod(m);
 		
-		m = new Method();
+		m = new EMethod();
 		m.addAtribute("5");
 		m.addAtribute("4");
 		a.addMethod(m);
 		
 		p.addClass(a);
 		
-		a = new Class();
+		a = new EClass();
 		a.setName("a2");
 		
-		m = new Method();
+		m = new EMethod();
 		m.addAtribute("1");
 		m.addAtribute("2");
 		a.addMethod(m);
 		
-		m = new Method();
+		m = new EMethod();
 		m.addAtribute("2");
 		m.addAtribute("3");
 		a.addMethod(m);
 		
-		m = new Method();
+		m = new EMethod();
 		m.addAtribute("5");
 		m.addAtribute("4");
 		a.addMethod(m);

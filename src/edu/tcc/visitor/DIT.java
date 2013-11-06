@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import edu.tcc.model.Attribute;
-import edu.tcc.model.Class;
-import edu.tcc.model.Method;
-import edu.tcc.model.Project;
+import edu.tcc.model.EAttribute;
+import edu.tcc.model.EClass;
+import edu.tcc.model.EMethod;
+import edu.tcc.model.EProject;
 
 /**
  * @author hugo.hennies
@@ -24,7 +24,7 @@ public class DIT implements Visitor {
 	}
 
 	@Override
-	public void visit(Project pjt) {
+	public void visit(EProject pjt) {
 		pjt.acceptOnAllClasses(this);
 
 		for (Entry<String,String> v : inheritanceTree.entrySet()) {
@@ -43,7 +43,7 @@ public class DIT implements Visitor {
 
 
 	@Override
-	public void visit(Class cls) {
+	public void visit(EClass cls) {
 		String ancestorName = null;
 		if (cls.hasAncestor()) ancestorName = cls.getAncestorClassName();
 		inheritanceTree.put(cls.getName(), ancestorName);
@@ -54,13 +54,13 @@ public class DIT implements Visitor {
 	}
 
 	@Override
-	public void visit(Method mtd) {
+	public void visit(EMethod mtd) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(Attribute atb) {
+	public void visit(EAttribute atb) {
 		// TODO Auto-generated method stub
 
 	}

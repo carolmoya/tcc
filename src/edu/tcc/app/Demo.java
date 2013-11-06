@@ -2,7 +2,7 @@ package edu.tcc.app;
 
 import java.util.Map;
 
-import edu.tcc.model.Project;
+import edu.tcc.model.EProject;
 import edu.tcc.visitor.DIT;
 import edu.tcc.visitor.LCOM;
 import edu.tcc.visitor.NOC;
@@ -16,14 +16,14 @@ import edu.tcc.visitor.WMC;
 public class Demo {
 	
 	private ProjectScenarioFabric psf;
-	private Project p;
+	private EProject p;
 	
 	/**
 	 * Class constructor
 	 */
 	Demo(){
 		psf = new ProjectScenarioFabric();
-		p = new Project();
+		p = new EProject();
 		p = psf.createProject();
 	}
 	

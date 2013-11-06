@@ -6,9 +6,9 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import edu.tcc.model.Class;
-import edu.tcc.model.Method;
-import edu.tcc.model.Project;
+import edu.tcc.model.EClass;
+import edu.tcc.model.EMethod;
+import edu.tcc.model.EProject;
 import edu.tcc.visitor.Visitor;
 import edu.tcc.visitor.WMC;
 
@@ -21,14 +21,14 @@ public class WMCTest {
 	@Test
 	public void testWMC(){
 		
-		Project p = new Project();
-		Class c = new Class();
+		EProject p = new EProject();
+		EClass c = new EClass();
 		c.setName("a1");
 		c.setAncestorClassName(null);
 		
 		int i;
 		for(i=1;i<=10;i++){
-			Method m = new Method();
+			EMethod m = new EMethod();
 			c.addMethod(m);
 		}
 		
