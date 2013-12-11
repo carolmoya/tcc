@@ -1,0 +1,20 @@
+<configuration>
+	<classes>
+		<class classpath="br.edu.exemplo.Exemplo">
+			<metrics>
+				<metric name="DIT" />
+				<metric name ="CBO" />
+				<metric name ="WWC" />
+			</metrics>
+			<testMethods>
+				<method name ="executar(int a, int b)">
+					<parameters>
+						<parameter type ="int" value ="3" />
+						<parameter type ="int" value ="3" />
+					</parameters>
+					<expectedResult type ="int" value ="9" />
+				</method>
+			</testMethods>
+		</class>
+	</classes>
+</configuration>
