@@ -33,7 +33,7 @@ public class Demo {
 	public void executeDemo(){
 		Visitor vDit = new DIT();
 		p.accept(vDit);
-		Map<String, Number> mapDIT = ((DIT)vDit).getProle();
+		Map<String, Number> mapDIT = ((DIT)vDit).getResults();
 		System.out.println("\nDIT - Depth of Inheritance Tree");
 		System.out.println("clsOne: " + mapDIT.get("ClassOne"));
 		System.out.println("clsTwo: " + mapDIT.get("ClassTwo"));

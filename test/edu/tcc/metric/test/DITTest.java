@@ -58,7 +58,7 @@ public class DITTest {
 		Visitor v = new DIT();
 		p.accept(v);
 		
-		Map<String, Number> classes = ((DIT) v).getProle();
+		Map<String, Number> classes = ((DIT) v).getResults();
 		
 		//check the number of classes
 		assertEquals(7,classes.size());

@@ -7,20 +7,25 @@ import java.util.List;
  * @author carolina.moya
  */
 
-public abstract class Subject {
+public abstract class Subject<E> {
 
-	List<Observer> observers;
+	List<Observer<E>> observers = new LinkedList<Observer<E>>();
 
 	protected void notifyObservers() {
-		for (Observer o : observers) {
+		for (Observer<E> o : observers) {
 			o.update(this);
 		}
 	}
 
-	public void attach(Observer o) {
+	public void attach(Observer<E> o) {
 		if (observers == null) {
-			observers = new LinkedList<Observer>();
+			observers = new LinkedList<Observer<E>>();
 		}
 		observers.add(o);
+	}
+	
+	public E changedState()
+	{
+		return null;
 	}
 }

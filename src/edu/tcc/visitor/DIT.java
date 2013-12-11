@@ -15,11 +15,11 @@ import edu.tcc.model.EProject;
 
 public class DIT implements Visitor {
 
-	private Map<String,Number> meh;
+	private Map<String,Number> DITResults;
 	private Map<String, String> inheritanceTree;
 
 	public DIT(){
-		meh = new HashMap<String,Number>();
+		DITResults = new HashMap<String,Number>();
 		inheritanceTree = new HashMap<String, String>();
 	}
 
@@ -28,7 +28,7 @@ public class DIT implements Visitor {
 		pjt.acceptOnAllClasses(this);
 
 		for (Entry<String,String> v : inheritanceTree.entrySet()) {
-			if(v.getValue() == null) meh.put(v.getKey(), 0);
+			if(v.getValue() == null) DITResults.put(v.getKey(), 0);
 			else {
 				String ancestorName = v.getValue();
 				int counter = 0;
@@ -36,7 +36,7 @@ public class DIT implements Visitor {
 					ancestorName = inheritanceTree.get(ancestorName);
 					counter++;
 				}
-				meh.put(v.getKey(), counter);
+				DITResults.put(v.getKey(), counter);
 			}
 		}
 	}
@@ -49,8 +49,8 @@ public class DIT implements Visitor {
 		inheritanceTree.put(cls.getName(), ancestorName);
 	}
 
-	public Map<String,Number> getProle(){
-		return meh;
+	public Map<String,Number> getResults(){
+		return DITResults;
 	}
 
 	@Override

@@ -1,43 +1,96 @@
 package edu.tcc.screen;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
-/**
- * @author carolina.moya
- */
+public class Screen extends JPanel implements ActionListener, Observer<List<String>>{
+	
+	private static final long serialVersionUID = 7142015044725707085L;
+	
+	private JButton openConfigurationButton, openDirectoryButton, runButton;
+	private JTextArea resultsArea;
+	private JFileChooser configurationfileChooser, directoryFileChooser;
+	private ScreenController controller;
 
-public class Screen {
+	public Screen(ScreenController controller) {
+		super(new BorderLayout());
+		
+		this.controller = controller;
 
-	public Screen() {
-		JFrame father = new JFrame();
-		Container contentPane = father.getContentPane();
-		father.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		InputView inputView = new InputView();
-		MetricsView metricsView = new MetricsView();
+		resultsArea = new JTextArea(5,20);
+		resultsArea.setMargin(new Insets(5,5,5,5));
+		resultsArea.setEditable(false);
+		JScrollPane logScrollPane = new JScrollPane(resultsArea);
 
-		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
+		configurationfileChooser = new JFileChooser();
+		
+		directoryFileChooser = new JFileChooser();
+		directoryFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		//directoryFileChooser.setAcceptAllFileFilterUsed(false);
 
-		FlowLayout childrenlayout = new FlowLayout();
-		inputView.setLayout(childrenlayout);
-		metricsView.setLayout(childrenlayout);
+		openConfigurationButton = new JButton("Open a File...");
+		openConfigurationButton.addActionListener(this);
 
-		father.setSize(500, 500);
-		father.setLocation(380, 10);
-		father.setTitle("Projeto de TCC - Versão 1.5.2");
+		openDirectoryButton = new JButton("Open a directory...");
+		openDirectoryButton.addActionListener(this);
+		
+		runButton = new JButton("Run...");
+		runButton.addActionListener(this);
 
-		inputView.setBorder(BorderFactory.createLineBorder(Color.black));
-		metricsView.setBorder(BorderFactory.createLineBorder(Color.black));
+		JPanel buttonPanel = new JPanel(); //use FlowLayout
+		buttonPanel.add(openConfigurationButton);
+		buttonPanel.add(openDirectoryButton);
+		buttonPanel.add(runButton);
 
-		contentPane.add(inputView);
-		contentPane.add(metricsView);
-
-		father.setVisible(true);
+		add(buttonPanel, BorderLayout.PAGE_START);
+		add(logScrollPane, BorderLayout.CENTER);   
 	}
 
+	public void actionPerformed(ActionEvent e) 
+	{
+		if (e.getSource() == openConfigurationButton) 
+		{
+			int returnVal = configurationfileChooser.showOpenDialog(this);
+
+			if (returnVal == JFileChooser.APPROVE_OPTION) 
+			{
+				controller.setConfigurationFilePath(configurationfileChooser.getSelectedFile().toURI());
+			} 
+		}
+		else if (e.getSource() == openDirectoryButton)
+		{
+			int returnVal = directoryFileChooser.showOpenDialog(this);
+
+			if (returnVal == JFileChooser.APPROVE_OPTION) 
+			{
+				controller.setProjectDirectory(directoryFileChooser.getCurrentDirectory().toURI());
+			}
+		}
+		else
+		{
+			controller.runTestsAndMetrics();
+		}
+	}
+
+	@Override
+	public void update(Subject<List<String>> s) 
+	{
+		List<String> messages = s.changedState();
+		for (String string : messages) {
+			resultsArea.append(string);
+			resultsArea.append("\n");
+		}
+
+	}
 }
+
+
