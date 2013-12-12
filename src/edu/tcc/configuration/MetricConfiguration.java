@@ -7,6 +7,11 @@ public class MetricConfiguration {
 
 	private String name;
 
+	/** Constructor **/
+	public MetricConfiguration(){
+		//nothing
+	}
+	
 	/**
 	 * @return name
 	 */

@@ -16,54 +16,54 @@ public class EClass implements Visitable {
 	private String ancestorClassName;
 	private List<EMethod> methods;
 	private List<EAttribute> attributes;
-	
-	/**
-	 * Class constructor
-	 */
+
+	/** Constructor **/
 	public EClass() {
 		this.methods = new ArrayList<EMethod>();
 		this.setAttributes(new ArrayList<EAttribute>());
 	}
 
-	
 	/**
 	 * @return the value of name
 	 */
 	public String getName() {
 		return name;
 	}
-	
-	
+
 	/**
 	 * Verify if the class has an ancestor
+	 * 
 	 * @return true or false
 	 */
 	public boolean hasAncestor() {
-		if(ancestorClassName == null) return false;
-		else return true;
+		if (ancestorClassName == null)
+			return false;
+		else
+			return true;
 	}
 
 	/**
 	 * Accept a visitor
+	 * 
 	 * @param Visitor
 	 */
 	@Override
 	public void accept(Visitor v) {
 		v.visit(this);
 	}
-	
-	
+
 	/**
 	 * Return the size of methods list
+	 * 
 	 * @return the size
 	 */
 	public int getMethodCount() {
 		return methods.size();
 	}
-	
-	
+
 	/**
 	 * Accept the visitor on all methods
+	 * 
 	 * @param Visitor
 	 */
 	public void acceptOnAllMethods(Visitor v) {
@@ -71,16 +71,15 @@ public class EClass implements Visitable {
 			m.accept(v);
 		}
 	}
-	
-	
+
 	/**
 	 * Add a method to the list methods
+	 * 
 	 * @param m
 	 */
-	public void addMethod(EMethod m){
+	public void addMethod(EMethod m) {
 		methods.add(m);
 	}
-
 
 	/**
 	 * @return methods
@@ -88,15 +87,15 @@ public class EClass implements Visitable {
 	public List<EMethod> getMethods() {
 		return methods;
 	}
-	
+
 	/**
 	 * Set a new value for name
+	 * 
 	 * @param name
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	/**
 	 * @return the value of fatherClassName
@@ -105,15 +104,14 @@ public class EClass implements Visitable {
 		return ancestorClassName;
 	}
 
-
 	/**
 	 * Set a new value for fatherClassName
+	 * 
 	 * @param fatherClassName
 	 */
 	public void setAncestorClassName(String fatherClassName) {
 		this.ancestorClassName = fatherClassName;
 	}
-
 
 	/**
 	 * @param methods
@@ -122,14 +120,12 @@ public class EClass implements Visitable {
 		this.methods = methods;
 	}
 
-
 	/**
 	 * @return attributes
 	 */
 	public List<EAttribute> getAttributes() {
 		return attributes;
 	}
-
 
 	/**
 	 * @param attributes

@@ -7,13 +7,14 @@ import edu.tcc.screen.ScreenFactory;
 import edu.tcc.screen.ScreenModel;
 
 /**
+ * @author carolina.moya
  * @author diego.pinho
+ * @author hugo.hennies
  */
 
 public class Main {
 
 	/**
-	 * Performs a demonstration of the features of the application (metrics)
 	 * @param args
 	 */
 	public static void main(String[] args) {

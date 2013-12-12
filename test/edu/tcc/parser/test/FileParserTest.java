@@ -7,6 +7,7 @@ import java.io.File;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.tcc.ClassContainer;
 import edu.tcc.model.EClass;
 import edu.tcc.parser.FileParser;
 
@@ -19,7 +20,7 @@ public class FileParserTest {
 	
 	@Before
 	public void setUpTestScenario(){
-		this.fileParser = new FileParser();
+		this.fileParser = new FileParser( new ClassContainer());
 	}
 	
 	@Test

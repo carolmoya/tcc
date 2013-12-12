@@ -6,25 +6,27 @@ import java.util.List;
 /**
  * @author carolina.moya
  */
-
 public class ScreenModel extends Subject<List<String>> {
-	
+
 	private List<String> messages = new LinkedList<String>();
-	
-	public void addMessage(String message)
-	{
+
+	/**
+	 * @param message
+	 */
+	public void addMessage(String message) {
 		messages.add(message);
 		notifyObservers();
 	}
-	
-	public List<String> getMessages()
-	{
+
+	/**
+	 * @return messages
+	 */
+	public List<String> getMessages() {
 		return messages;
 	}
-	
+
 	@Override
-	public List<String> changedState()
-	{
+	public List<String> changedState() {
 		return messages;
 	}
 

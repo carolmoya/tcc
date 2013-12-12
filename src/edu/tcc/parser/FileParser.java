@@ -1,12 +1,11 @@
 package edu.tcc.parser;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-import javax.tools.JavaCompiler;
-import javax.tools.ToolProvider;
-
+import edu.tcc.ClassContainer;
 import edu.tcc.model.EClass;
 
 /**
@@ -14,15 +13,15 @@ import edu.tcc.model.EClass;
  */
 public class FileParser {
 
-	private JavaCompiler compiler;
 	private ClassParser classParser;
+	private ClassContainer classContainer;
 
 	/**
 	 * Class constructor
 	 */
-	public FileParser() {
-		System.setProperty("java.home", "C:\\Program Files\\Java\\jdk1.7.0_02");
+	public FileParser(ClassContainer classContainer) {
 		this.classParser = new ClassParser();
+		this.classContainer = classContainer;
 	}
 
 	/**
@@ -39,26 +38,33 @@ public class FileParser {
 	 * @return Class<? extends Object>
 	 */
 	public Class<? extends Object> getClassInstanceFromFile(File file){
-		this.compiler = ToolProvider.getSystemJavaCompiler();
-		this.compiler.run(null, null, null, file.getPath());
-		
 		String root = this.getFileRoot(file);
 		File rootFile = new File(root);
-		
 		try {
-			URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { rootFile.toURI().toURL() });
-			Class<?> cls = Class.forName(this.getCompleteClassName(file), true, classLoader);
-			Object instance = cls.newInstance();
-			Class<? extends Object> klass = instance.getClass();
+			Class<?> cls = this.getClassObjectAndSaveIt(file, rootFile);
+			Class<? extends Object> klass = this.instanciateClass(cls);
 			return klass;
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		
 		return null;
 	}
-	
+
+	private Class<? extends Object> instanciateClass(Class<?> cls)
+			throws InstantiationException, IllegalAccessException {
+		Object instance = cls.newInstance();
+		Class<? extends Object> klass = instance.getClass();
+		return klass;
+	}
+
+	private Class<?> getClassObjectAndSaveIt(File file, File rootFile)
+			throws MalformedURLException, ClassNotFoundException {
+		URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { rootFile.toURI().toURL() });
+		Class<?> cls = Class.forName(this.getCompleteClassName(file), true, classLoader);
+		this.saveClassObject(cls); // save to be used on tests
+		return cls;
+	}
 	
 	/**
 	 * @param klass
@@ -76,7 +82,7 @@ public class FileParser {
 	private String getCompleteClassName(File file) {
 		String message = file.getAbsolutePath();
 		int indexOf = message.indexOf("src");
-		message = message.substring(indexOf+3);
+		message = message.substring(indexOf + 3);
 		String[] split = message.split("\\\\");
 		String classpath = "";
 		for (String string : split) {
@@ -97,4 +103,12 @@ public class FileParser {
 		int indexOfSrcWorld = filePath.indexOf("src");
 		return filePath.substring(0,indexOfSrcWorld+4);
 	}
+	
+	/**
+	 * @param cls
+	 */
+	private void saveClassObject(Class<?> cls){
+		this.classContainer.saveClassObject(cls);
+	}
+	
 }

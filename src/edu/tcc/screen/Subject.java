@@ -23,9 +23,8 @@ public abstract class Subject<E> {
 		}
 		observers.add(o);
 	}
-	
-	public E changedState()
-	{
+
+	public E changedState() {
 		return null;
 	}
 }

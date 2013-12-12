@@ -1,6 +1,5 @@
 package edu.tcc.screen;
 
-
 /**
  * @author carolina.moya
  * @param <E>
@@ -9,6 +8,5 @@ package edu.tcc.screen;
 public interface Observer<E> {
 
 	void update(Subject<E> s);
-
 
 }

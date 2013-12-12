@@ -12,6 +12,7 @@ public class MethodConfiguration {
 	private List<ParameterConfiguration> parametersConfiguration;
 	private ExpectedResultConfiguration expectedResultConfiguration;
 
+	/** Constructor **/
 	public MethodConfiguration() {
 		this.setParametersConfiguration(new ArrayList<ParameterConfiguration>());
 	}

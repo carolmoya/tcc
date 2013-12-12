@@ -8,6 +8,11 @@ public class ParameterConfiguration {
 	private String type;
 	private String value;
 	
+	/** Constructor **/
+	public ParameterConfiguration(){
+		//nothing
+	}
+	
 	/**
 	 * @return type
 	 */
