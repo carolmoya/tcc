@@ -14,7 +14,7 @@ import javax.tools.ToolProvider;
 public class ProjectCompiler {
 
 	private static final String JAVA_HOME = "java.home";
-	private static final String JAVA_HOME_DEFAULT = "C:\\Program Files\\Java\\jdk1.7.0_02";
+	private static final String JAVA_HOME_DEFAULT = "C:\\Arquivos de programas\\Java\\jdk1.7.0_02";
 	
 	private JavaCompiler compiler;
 	

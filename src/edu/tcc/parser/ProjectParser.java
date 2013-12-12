@@ -87,4 +87,10 @@ public class ProjectParser {
 		else return false;
 	}
 	
+	/**
+	 * @return classes
+	 */
+	public List<Class<?>> getClasses() {
+		return classContainer.getClasses();
+	}
 }

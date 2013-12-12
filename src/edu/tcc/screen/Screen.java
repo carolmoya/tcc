@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -75,7 +76,15 @@ public class Screen extends JPanel implements ActionListener, Observer<List<Stri
 						.getCurrentDirectory().toURI());
 			}
 		} else {
-			controller.runTestsAndMetrics();
+			try {
+				controller.runTestsAndMetrics();
+			} catch (ClassNotFoundException | SecurityException
+					| NoSuchMethodException | IllegalArgumentException
+					| IllegalAccessException | InvocationTargetException
+					| InstantiationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 
