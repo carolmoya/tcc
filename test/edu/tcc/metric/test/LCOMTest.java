@@ -64,7 +64,7 @@ public class LCOMTest {
 		Visitor v = new LCOM();
 		p.accept(v);
 		
-		Map<String, Number> classes = ((LCOM) v).getMeh();
+		Map<String, Number> classes = ((LCOM) v).getResults();
 		
 		//check the number of classes
 		assertEquals(2,classes.size());

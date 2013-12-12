@@ -48,7 +48,7 @@ public class WMC implements Visitor {
 	 * Returns the mapWMC
 	 * @return Map<String,Number>
 	 */
-	public Map<String,Number> getmapWMC(){
+	public Map<String,Number> getResults(){
 		return this.mapWMC;
 	}
 

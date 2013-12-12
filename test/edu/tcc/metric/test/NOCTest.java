@@ -60,7 +60,7 @@ public class NOCTest {
 		Visitor v = new NOC();
 		p.accept(v);
 		
-		Map<String, Number> classes = ((NOC) v).getMapAncestorNumberOfChildren();
+		Map<String, Number> classes = ((NOC) v).getResults();
 		
 		//check the number of classes
 		assertEquals(7,classes.size());

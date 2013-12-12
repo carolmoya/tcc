@@ -42,9 +42,10 @@ public class FileParser {
 		this.compiler = ToolProvider.getSystemJavaCompiler();
 		this.compiler.run(null, null, null, file.getPath());
 		
+		String root = this.getFileRoot(file);
+		File rootFile = new File(root);
+		
 		try {
-			String root = this.getFileRoot(file);
-			File rootFile = new File(root);
 			URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { rootFile.toURI().toURL() });
 			Class<?> cls = Class.forName(this.getCompleteClassName(file), true, classLoader);
 			Object instance = cls.newInstance();
@@ -73,24 +74,18 @@ public class FileParser {
 	 * @return finalAbsolutePath
 	 */
 	private String getCompleteClassName(File file) {
-		File absolute = file.getAbsoluteFile();
-		String root = this.getFileRoot(file);
-		String absolutePath = absolute.toString();
-
-		absolutePath = absolutePath.substring(3 + root.length(),
-				absolutePath.length() - 5); // exclude .java
-
-		String[] split = absolutePath.split("\\\\");
-
-		String finalAbsolutePath = "";
+		String message = file.getAbsolutePath();
+		int indexOf = message.indexOf("src");
+		message = message.substring(indexOf+3);
+		String[] split = message.split("\\\\");
+		String classpath = "";
 		for (String string : split) {
-			finalAbsolutePath = finalAbsolutePath + string + ".";
+			classpath = classpath + string + ".";
 		}
-
-		finalAbsolutePath = finalAbsolutePath.substring(0,
-				finalAbsolutePath.length() - 1); // remove the last dot
-
-		return finalAbsolutePath;
+		int indexOfJavaWord = classpath.indexOf("java");
+		classpath = classpath.substring(1, indexOfJavaWord - 1);
+		
+		return classpath;
 	}
 
 	/**
@@ -98,13 +93,8 @@ public class FileParser {
 	 * @return fileRoot
 	 */
 	private String getFileRoot(File file) {
-		String root = file.getParent();
-		String[] split = root.split("\\\\");
-		int length = split.length;
-
-		String parent = split[length - 1];
-		String fileRoot = "/" + parent;
-
-		return fileRoot;
+		String filePath = file.getPath();
+		int indexOfSrcWorld = filePath.indexOf("src");
+		return filePath.substring(0,indexOfSrcWorld+4);
 	}
 }

@@ -61,7 +61,7 @@ public class NOC implements Visitor{
 	 * Returns the mapAncestorNumberOfChildren
 	 * @return Map<String,Number>
 	 */
-	public Map<String,Number> getMapAncestorNumberOfChildren() {
+	public Map<String,Number> getResults() {
 		return mapAncestorNumberOfChildren;
 	}
 	

@@ -37,7 +37,7 @@ public class WMCTest {
 		Visitor v = new WMC();
 		p.accept(v);
 		
-		Map<String, Number> meh = ((WMC) v).getmapWMC();
+		Map<String, Number> meh = ((WMC) v).getResults();
 		Number number = meh.get("a1");
 		assertEquals(10,number);
 	}

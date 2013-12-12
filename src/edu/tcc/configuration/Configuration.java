@@ -24,6 +24,7 @@ public class Configuration {
 		return classesConfiguration;
 	}
 
+
 	/**
 	 * @param classesConfiguration
 	 */

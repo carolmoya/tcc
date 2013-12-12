@@ -56,7 +56,7 @@ public class LCOM implements Visitor {
 	 * Returns the map meh
 	 * @return
 	 */
-	public Map<String, Number> getMeh() {
+	public Map<String, Number> getResults() {
 		return meh;
 	}
 

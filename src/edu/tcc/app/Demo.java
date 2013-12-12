@@ -45,7 +45,7 @@ public class Demo {
 		
 		Visitor vLcom = new LCOM();
 		p.accept(vLcom);
-		Map<String, Number> mapLCOM = ((LCOM)vLcom).getMeh();
+		Map<String, Number> mapLCOM = ((LCOM)vLcom).getResults();
 		System.out.println("\nLCOM - Lack of cohesion in methods");
 		System.out.println("clsOne: " + mapLCOM.get("ClassOne"));
 		System.out.println("clsTwo: " + mapLCOM.get("ClassTwo"));
@@ -56,7 +56,7 @@ public class Demo {
 		
 		Visitor vNoc = new NOC();
 		p.accept(vNoc);
-		Map<String, Number> mapANC = ((NOC)vNoc).getMapAncestorNumberOfChildren();
+		Map<String, Number> mapANC = ((NOC)vNoc).getResults();
 		System.out.println("\nNOC - Number of Children");
 		System.out.println("clsOne: " + mapANC.get("ClassOne"));
 		System.out.println("clsTwo: " + mapANC.get("ClassTwo"));
@@ -67,7 +67,7 @@ public class Demo {
 		
 		Visitor vWMC = new WMC();
 		p.accept(vWMC);
-		Map<String, Number> mapWMC = ((WMC)vWMC).getmapWMC();
+		Map<String, Number> mapWMC = ((WMC)vWMC).getResults();
 		System.out.println("\nWMC - Weighted methods per class");
 		System.out.println("clsOne: " + mapWMC.get("ClassOne"));
 		System.out.println("clsTwo: " + mapWMC.get("ClassTwo"));

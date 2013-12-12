@@ -61,5 +61,41 @@ public class ClassConfiguration {
 			List<MethodConfiguration> methodsConfiguration) {
 		this.methodsConfiguration = methodsConfiguration;
 	}
+	
+	public boolean shouldCalculateDIT()
+	{
+		boolean shouldCalculateDIT = false;
+		for (MetricConfiguration metric : metricsConfiguration) {
+			shouldCalculateDIT = shouldCalculateDIT || metric.getName().equals("DIT");
+		}
+		return shouldCalculateDIT;
+	}
+	
+	public boolean shouldCalculateLCOM()
+	{
+		boolean shouldCalculateLCOM = false;
+		for (MetricConfiguration metric : metricsConfiguration) {
+			shouldCalculateLCOM = shouldCalculateLCOM || metric.getName().equals("LCOM");
+		}
+		return shouldCalculateLCOM;
+	}
+	
+	public boolean shouldCalculateNOC()
+	{
+		boolean shouldCalculateNOC = false;
+		for (MetricConfiguration metric : metricsConfiguration) {
+			shouldCalculateNOC = shouldCalculateNOC || metric.getName().equals("NOC");
+		}
+		return shouldCalculateNOC;
+	}
+	
+	public boolean shouldCalculateWMC()
+	{
+		boolean shouldCalculateWMC = false;
+		for (MetricConfiguration metric : metricsConfiguration) {
+			shouldCalculateWMC = shouldCalculateWMC || metric.getName().equals("WMC");
+		}
+		return shouldCalculateWMC;
+	}
 
 }
